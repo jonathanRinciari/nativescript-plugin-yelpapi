@@ -1,28 +1,72 @@
 import { Observable } from 'tns-core-modules/data/observable';
-import * as app from 'tns-core-modules/application';
-import * as dialogs from 'tns-core-modules/ui/dialogs';
+import { ios as iosUtils } from "tns-core-modules/utils/utils";
 
-export class Common extends Observable {
-  public message: string;
-
-  constructor() {
-    super();
-    this.message = Utils.SUCCESS_MSG();
-  }
-
-  public greet() {
-    return "Hello, NS";
-  }
+export interface ParsedYLPCategories {
+  alias: string;
+  name: string;
 }
 
-export class Utils {
-  public static SUCCESS_MSG(): string {
-    let msg = `Your plugin is working on ${app.android ? 'Android' : 'iOS'}.`;
+export class Common extends Observable {
 
-    setTimeout(() => {
-      dialogs.alert(`${msg} For real. It's really working :)`).then(() => console.log(`Dialog closed.`));
-    }, 2000);
-
-    return msg;
+  public parseBusiness (business: YLPBusiness) {
+    return {
+      name: business.name,
+      closed: business.closed,
+      website: business.URL.absoluteString,
+      categories: this.parseCategories(business.categories),
+      location: this.parseYelpLocation(business.location),
+      rating: business.rating,
+      reviewCount: business.reviewCount,
+      phone: business.phone
+    };
   }
+
+  public parseCategories(categories: NSArray<YLPCategory>): ParsedYLPCategories[] {
+    const convCategories: any[] = iosUtils.collections.nsArrayToJSArray(categories);
+    const categoryResults: ParsedYLPCategories[] = convCategories.map((category: YLPCategory) => this.parseYLPCategories(category));
+    return categoryResults;
+  }
+
+  public parseYLPCategories(category: YLPCategory): ParsedYLPCategories {
+    return {
+      alias: category.alias,
+      name: category.name
+    };
+  }
+
+  public parseYelpLocation(location: YLPLocation) {
+    return {
+        address: location.address,
+        city: location.city,
+        coordinate: this.parseCoordinates(location.coordinate),
+        countryCode: location.countryCode,
+        postalCode: location.postalCode,
+        stateCode: location.stateCode
+      };
+  }
+
+  public parseCoordinates(coordinates: YLPCoordinate) {
+    return {
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude
+    };
+  }
+
+  public parseReviews(reviews: YLPBusinessReviews) {
+    return {
+      reviews: iosUtils.collections.nsArrayToJSArray(reviews.reviews).map((review => this.parseReview(review))),
+      total: reviews.total
+    };
+  }
+
+  public parseReview(review: any) {
+    return {
+      message: review.excerpt,
+      rating: review.rating,
+      timeCreate: review.timeCreated,
+      user: review.user
+    };
+  }
+
+
 }
