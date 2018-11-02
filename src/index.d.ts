@@ -1,6 +1,16 @@
 import { Common } from './YelpApi.common';
 export declare class YelpApi extends Common {
-  // define your typings manually
-  // or..
-  // take the ios or android .d.ts files and copy/paste them here
+  constructor(apiKey: string);
+  
+  businessSearchWithNumber(phone: string);
+
+  businessSearchWithId(id: string);
+
+  businessReviewsWithId(id: string);
+
+  searchWithLocation(location: string);
+
+  searchWithLocationTermLimitOffsetSort(location: string, term: string, limit: number, offset: number, sort: YLPSortType)
+
+  searchWithCoordinates(coordinates: { latitude: number, longitude: number });
 }
