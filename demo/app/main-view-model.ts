@@ -9,6 +9,5 @@ export class HelloWorldModel extends Observable {
     super();
 
     this.yelpApi = new YelpApi();
-    this.message = this.yelpApi.message;
   }
 }
