@@ -1,7 +1,7 @@
 {
     "name": "nativescript-YelpApi",
     "version": "1.0.0",
-    "description": "Your awesome NativeScript plugin.",
+    "description": "Yelp-api plugin for nativescript",
     "main": "YelpApi",
     "typings": "index.d.ts",
     "nativescript": {
@@ -20,22 +20,26 @@
         "tslint": "cd .. && tslint \"**/*.ts\" --config tslint.json --exclude \"**/node_modules/**\"",
         "plugin.tscwatch": "npm run tsc -- -w",
         "demo.ios": "npm run tsc && cd ../demo && tns run ios --syncAllFiles --emulator",
+        "demo-ng.ios": "npm run tsc && cd ../demo-ng && tns run ios --syncAllFiles --emulator",
         "demo.android": "npm run tsc && cd ../demo && tns run android --syncAllFiles --emulator",
+        "demo-ng.android": "npm run tsc && cd ../demo-ng && tns run android --syncAllFiles --emulator",
         "demo.reset": "cd ../demo && npx rimraf -- hooks node_modules platforms package-lock.json",
+        "demo-ng.reset": "cd ../demo-ng && npx rimraf -- hooks node_modules platforms package-lock.json",
         "plugin.prepare": "npm run build && cd ../demo && tns plugin remove nativescript-YelpApi && tns plugin add ../src",
+        "plugin.prepare-ng": "npm run build && cd ../demo-ng && tns plugin remove nativescript-YelpApi && tns plugin add ../src",
         "clean": "npm run demo.reset && npx rimraf -- node_modules package-lock.json && npm i",
+        "clean-ng": "npm run demo-ng.reset && npx rimraf -- node_modules package-lock.json && npm i",
         "ci.tslint": "npm i && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'",
         "prepack": "npm run build.native"
     },
     "keywords": [
         "NativeScript",
         "JavaScript",
-        "Android",
         "iOS"
     ],
     "author": {
-        "name": "Your Name",
-        "email": "youremail@yourdomain.com"
+        "name": "Jonathan Rinciari",
+        "email": "rinciarijoc@gmail.com"
     },
     "bugs": {
         "url": "https://github.com/jonathanRinciari/nativescript-YelpApi/issues"

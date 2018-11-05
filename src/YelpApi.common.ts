@@ -68,5 +68,23 @@ export class Common extends Observable {
     };
   }
 
-
+  public formatSearchQuery(location: string | {latitude: number, longitude: number}, category?: string[], deals?: boolean, limit?: number, offset?: number, radius?: number, sort?: YLPSortType, searchTerm?: string): YLPQuery {
+    let query: YLPQuery;
+    if (location.hasOwnProperty('latitude')) {
+      const coordinates = location as {latitude: number, longitude: number};
+      query = YLPQuery.alloc().initWithCoordinate(YLPCoordinate.new().initWithLatitudeLongitude(coordinates.latitude, coordinates.longitude));
+    } else if (location) {
+      query = YLPQuery.alloc().initWithLocation(location as string);
+    } else {
+      query = YLPQuery.new();
+    }
+      query.categoryFilter = iosUtils.collections.jsArrayToNSArray(category);
+      query.dealsFilter = deals;
+      query.limit = limit;
+      query.offset = offset;
+      query.radiusFilter = radius;
+      query.sort = sort;
+      query.term = searchTerm;
+    return query;
+  }
 }
