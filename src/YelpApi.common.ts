@@ -16,6 +16,7 @@ export class Common extends Observable {
       categories: this.parseCategories(business.categories),
       location: this.parseYelpLocation(business.location),
       rating: business.rating,
+      imageUrl: business.imageURL.absoluteString,
       reviewCount: business.reviewCount,
       phone: business.phone
     };

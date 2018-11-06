@@ -1,0 +1,21 @@
+<StackLayout class="wrapper">
+  <FlexboxLayout flexDirection="column">
+    <StackLayout class="input-field inputWrapper text-center">
+      <Label text="Enter Phone" textWrap="true"></Label>    
+      <TextField 
+        hint="xxxxxxxxx" 
+        [(ngModel)]="phone" 
+        autocorrect="false" 
+        secure="false"
+        class="input input-border">
+      </TextField>
+        <Button [disabled]="phone.length < 9" text="Search" (tap)="search()" class="btn btn-primary btn-active"></Button>       
+    </StackLayout>
+  </FlexboxLayout>
+  <StackLayout *ngIf="noResults" class="input-field inputWrapper text-center">
+    <Label text="There were no results" textWrap="true" class="noResults"></Label>      
+  </StackLayout>
+  <StackLayout *ngIf="queryResults" class="input-field inputWrapper text-center">
+    <ns-businessResults [results]="queryResults"></ns-businessResults>
+  </StackLayout>
+</StackLayout>

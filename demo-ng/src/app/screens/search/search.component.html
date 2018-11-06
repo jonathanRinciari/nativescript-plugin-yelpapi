@@ -1,0 +1,8 @@
+<ActionBar title="Search" icon="" class="action-bar">
+</ActionBar>
+
+<FlexboxLayout flexDirection="column">
+  <StackLayout *ngIf="type === 'searchByPhone'">
+      <ns-searchByPhone></ns-searchByPhone>
+  </StackLayout>    
+</FlexboxLayout>

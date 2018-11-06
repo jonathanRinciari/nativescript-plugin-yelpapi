@@ -1,0 +1,9 @@
+<StackLayout>
+  <Label [text]="results.name" textWrap="true"></Label>
+  <Label *ngFor="let item of results.categories" [text]="item.name" textWrap="true"></Label>
+  <Label [text]="results.location.city" textWrap="true"></Label>
+  <Label [text]="'Rating: ' + results.rating" textWrap="true"></Label>
+  <Label [text]="results.phone" textWrap="true"></Label>
+  
+</StackLayout>
+
